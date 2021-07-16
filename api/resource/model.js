@@ -1,14 +1,17 @@
 const db = require("../../data/dbConfig");
 
-function getResource() {
-  console.log("inside get resource");
+function getResources() {
+  console.log("inside get Resources");
+  return db("Resources");
 }
 
-function createResource() {
-  console.log("inside create resource");
+async function createResources(newResources) {
+  console.log("inside create Resources");
+  const [Resources_id] = await db("Resources").insert(newResources);
+  return getResources().where({ Resources_id }).first();
 }
 
 module.exports = {
-  getResource,
-  createResource,
+  getResources,
+  createResources,
 };
