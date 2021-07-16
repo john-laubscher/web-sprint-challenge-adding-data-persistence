@@ -5,13 +5,13 @@ function getResources() {
   return db("Resources");
 }
 
-async function createResources(newResources) {
+async function createResource(newResources) {
   console.log("inside create Resources");
-  const [Resources_id] = await db("Resources").insert(newResources);
-  return getResources().where({ Resources_id }).first();
+  const [Resource_id] = await db("Resources").insert(newResources);
+  return getResources().where({ Resource_id }).first();
 }
 
 module.exports = {
   getResources,
-  createResources,
+  createResource,
 };
