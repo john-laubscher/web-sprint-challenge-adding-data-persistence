@@ -2,8 +2,9 @@ exports.up = async function (knex) {
   await knex.schema
     .createTable("projects", (table) => {
       table.increments("project_id");
+      table.string("project_name", 350).notNullable();
       table.string("project_description", 350);
-      table.boolean("project_completed").defaultTo(false); ///default to false (integer 0)
+      table.boolean("project_completed").defaultTo(false);
     })
     .createTable("resources", (table) => {
       table.increments("resource_id");
@@ -14,7 +15,7 @@ exports.up = async function (knex) {
       table.increments("task_id");
       table.string("task_description").notNullable();
       table.string("task_notes");
-      table.boolean("task_completed").defaultTo(false); //the database defaults it to false (integer 0) if not provided
+      table.boolean("task_completed").defaultTo(false);
       table.string("project_id").notNullable().references("project_id").inTable("projects");
     })
     .createTable("project_resources", (table) => {
@@ -27,18 +28,3 @@ exports.up = async function (knex) {
 exports.down = async function (knex) {
   await knex.schema.dropTableIfExists("project_resources").dropTableIfExists("tasks").dropTableIfExists("resources").dropTableIfExists("projects");
 };
-
-// /// project_id - primary key
-//  project_name - required
-//  project_description - optional
-//  project_completed - the database defaults it to false (integer 0) if not provided
-
-// resource_id - primary key
-//  resource_name - required and unique
-//  resource_description - optional
-
-//  task_id - primary key
-//  task_description - required
-//  task_notes - optional
-//  task_completed - the database defaults it to false (integer 0) if not provided
-//  project_id - required and points to an actual project_id in the projects table
