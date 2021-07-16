@@ -1,4 +1,4 @@
-const db = require("../data/db-config");
+const db = require("../../data/dbConfig");
 
 function getResource() {
   console.log("inside get resource");
