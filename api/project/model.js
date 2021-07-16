@@ -5,8 +5,10 @@ function getProject() {
   return db("projects");
 }
 
-function createProject() {
+async function createProject(newProject) {
   console.log("inside create project");
+  const [project_id] = await db("projects").insert(newProject);
+  return getProject().where({ project_id }).first();
 }
 
 module.exports = {
