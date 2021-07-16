@@ -1,14 +1,17 @@
 const db = require("../../data/dbConfig");
 
-function getTask() {
-  console.log("inside get Task");
+function getTasks() {
+  console.log("inside get Tasks");
+  return db("Tasks");
 }
 
-function createTask() {
+async function createTask(newTask) {
   console.log("inside create Task");
+  const [task_id] = await db("tasks").insert(newTask);
+  return getTasks().where({ task_id }).first();
 }
 
 module.exports = {
-  getTask,
+  getTasks,
   createTask,
 };
