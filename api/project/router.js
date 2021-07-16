@@ -14,7 +14,14 @@ router.get("/", (req, res, next) => {
 router.post("/", checkName, (req, res, next) => {
   Projects.createProject(req.body)
     .then((newProject) => {
-      res.status(201).json(newProject);
+      const { project_id, project_name, project_description, project_completed } = newProject;
+      res.status(201).json({
+        project_id: project_id,
+        project_name: project_name,
+        project_description: project_description,
+        project_completed: !!project_completed,
+      });
+      console.log("this is new project", newProject);
     })
     .catch(next);
 });

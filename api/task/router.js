@@ -13,7 +13,14 @@ router.get("/", (req, res, next) => {
 router.post("/", (req, res, next) => {
   Tasks.createTask(req.body)
     .then((newTask) => {
-      res.status(201).json(newTask);
+      const { task_id, task_notes, task_description, task_completed, project_id } = newTask;
+      res.status(201).json({
+        task_id: task_id,
+        task_description: task_description,
+        task_notes: task_notes,
+        task_completed: !!task_completed,
+        project_id: project_id,
+      });
     })
     .catch(next);
 });
